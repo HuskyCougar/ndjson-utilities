@@ -1,7 +1,6 @@
 # ndjson-utilities
 Tools I have written to work with ndjson files.
 
-
 ## print_nested_structure
 
 This function will read multidimensional data and recursively descend into that data. This helps you identify the structure of nested dictionaries and lists, including keys at each level and the data types of the values.
@@ -60,6 +59,18 @@ python3 /path/to/ndjson_nested_structure.py gemini_sample_data_03.ndjson
 # or, for gzipped data
 gunzip -c Kaggle_500MB_TV_Show.ndjson.gz | head | python3 /path/to/ndjson_nested_structure.py
 ```
+
+## ndjson_pretty.py
+
+This is a simple tool that reads JSON data from a file or from STDIN and pretty prints the data to STDOUT. 
+
+I have this set as an aliased command in my ~/.bashrc file.
+
+## read_ndjson_and_yield_dict.py
+
+The function in this script `read_ndjson_and_yield_dict` opens NDJSON files and returns a dictionary for each record. It also opens JSON files and checks to see if the JSON is an Array of Objects. If it is, the function will iterate over the list and return dictionaries to the caller.
+
+
 
 
 
