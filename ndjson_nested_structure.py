@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-# nano ~/.bashrc
-# alias ndjsondeeprefs=/path/to/ndjson_deep_refs.py
+# https://github.com/HuskyCougar/ndjson-utilities
+# ndjson_nested_structure.py
 
 import sys
 import fileinput
@@ -42,7 +42,6 @@ def print_nested_structure( ref , val ) :
 
     else : print( f"# TODO # Type : {(type(val)) : {val}}" )  # Fix me if this ever happens
 
-
 ########################################################################
 ##                            Read in Data                            ##
 ########################################################################
@@ -51,15 +50,117 @@ for rec_str in fileinput.input() :
 
     if not rec_str.strip() : continue
 
-    try : 
+    try :
         print_nested_structure( "rec" , json.loads( rec_str ) )
         print()
-    except Exception as try_err : 
+    except Exception as try_err :
         print( f'# Try Error : {try_err}' )
         print( f'# rec_str   : {rec_str}' )
     except : pass
 
 
+########################################################################
+##                               Usage                                ##
+########################################################################
 
-
+#   ## Add alias to ~/.bashrc
+#
+#   nano ~/.bashrc
+#   alias ndjsonstruct=/path/to/ndjson_nested_structure.py
+#   source ~/.bashrc
+#
+#   Examples assume you made an alias. If you did not, use the path to the script instead.
+#
+#   Examples will also assume you have a file containing data that looks like this. This is Newline-Delimited JSON (NDJSON).
+#
+#   {"album": {"title": "Abbey Road", "year": 1969, "genre": "Rock"}, "tracks": ["Come Together", "Something", "Here Comes the Sun" ]}
+#   {"album": {"title": "Nevermind", "year": 1991, "genre": "Grunge"}, "tracks": ["Smells Like Teen Spirit", "Come As You Are", "Lithium" ]}
+#   {"album": {"title": "Blue Train", "year": 1957, "genre": "Jazz"}, "tracks": ["Blue Train", "Moment's Notice", "”Cease Fire”" ]}
+#   {"album": {"title": "Kind of Blue", "year": 1959, "genre": "Jazz"}, "tracks": ["So What", "Freddie Freeloader", "Blue in Green" ]}
+#   {"album": {"title": "The Black Parade", "year": 2006, "genre": "Rock"}, "tracks": ["The Black Parade", "Welcome to the Black Parade", "I Don't Love You" ]}
+#
+#
+#   ## Run on a regular file using alias
+#
+#   ### Syntax
+#
+#       ndjsonstruct music_albums.ndjson
+#
+#   ### Output
+#
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Abbey Road
+#       # <class 'int'>      # rec[ "album" ][ "year" ]                  : 1969
+#       # <class 'str'>      # rec[ "album" ][ "genre" ]                 : Rock
+#       # <class 'list'>     # rec[ "tracks" ]                           # ['Come Together', 'Something', 'Here Comes the Sun']
+#       # <class 'str'>      # rec[ "tracks" ][ 0 ]                      : Come Together
+#       # <class 'str'>      # rec[ "tracks" ][ 1 ]                      : Something
+#       # <class 'str'>      # rec[ "tracks" ][ 2 ]                      : Here Comes the Sun
+#
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Nevermind
+#       # <class 'int'>      # rec[ "album" ][ "year" ]                  : 1991
+#       # <class 'str'>      # rec[ "album" ][ "genre" ]                 : Grunge
+#       # <class 'list'>     # rec[ "tracks" ]                           # ['Smells Like Teen Spirit', 'Come As You Are', 'Lithium']
+#       # <class 'str'>      # rec[ "tracks" ][ 0 ]                      : Smells Like Teen Spirit
+#       # <class 'str'>      # rec[ "tracks" ][ 1 ]                      : Come As You Are
+#       # <class 'str'>      # rec[ "tracks" ][ 2 ]                      : Lithium
+#
+#   ## Just look at shape of data
+#
+#   ### Syntax
+#
+#       head music_albums.ndjson | ndjsonstruct
+#
+#   ### Output
+#
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Abbey Road
+#       # <class 'int'>      # rec[ "album" ][ "year" ]                  : 1969
+#       # <class 'str'>      # rec[ "album" ][ "genre" ]                 : Rock
+#       # <class 'list'>     # rec[ "tracks" ]                           # ['Come Together', 'Something', 'Here Comes the Sun']
+#       # <class 'str'>      # rec[ "tracks" ][ 0 ]                      : Come Together
+#       # <class 'str'>      # rec[ "tracks" ][ 1 ]                      : Something
+#       # <class 'str'>      # rec[ "tracks" ][ 2 ]                      : Here Comes the Sun
+#
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Nevermind
+#       # <class 'int'>      # rec[ "album" ][ "year" ]                  : 1991
+#       # <class 'str'>      # rec[ "album" ][ "genre" ]                 : Grunge
+#       # <class 'list'>     # rec[ "tracks" ]                           # ['Smells Like Teen Spirit', 'Come As You Are', 'Lithium']
+#       # <class 'str'>      # rec[ "tracks" ][ 0 ]                      : Smells Like Teen Spirit
+#       # <class 'str'>      # rec[ "tracks" ][ 1 ]                      : Come As You Are
+#       # <class 'str'>      # rec[ "tracks" ][ 2 ]                      : Lithium
+#
+#   ## Look at shape of compressed data
+#
+#   ### Syntax
+#
+#       gunzip -c music_albums.ndjson.gz | head | ndjsonstruct
+#
+#   ### Output
+#
+#   ## find records with specific values and then show the structure of only those records
+#
+#   ### Syntax
+#
+#       grep -i Grunge music_albums.ndjson | ndjsonstruct
+#
+#   ### Output
+#
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Nevermind
+#       # <class 'int'>      # rec[ "album" ][ "year" ]                  : 1991
+#       # <class 'str'>      # rec[ "album" ][ "genre" ]                 : Grunge
+#       # <class 'list'>     # rec[ "tracks" ]                           # ['Smells Like Teen Spirit', 'Come As You Are', 'Lithium']
+#       # <class 'str'>      # rec[ "tracks" ][ 0 ]                      : Smells Like Teen Spirit
+#       # <class 'str'>      # rec[ "tracks" ][ 1 ]                      : Come As You Are
+#       # <class 'str'>      # rec[ "tracks" ][ 2 ]                      : Lithium
+#
+#   ## select records with specific values anywhere in the record, deconstruct, and then extract the specific value you want.
+#
+#   ### Syntax
+#
+#       grep -i Jazz music_albums.ndjson | ndjsonstruct | grep title
+#
+#   ### Output
+#
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Blue Train
+#       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Kind of Blue
+#
 
