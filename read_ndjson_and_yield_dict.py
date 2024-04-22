@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # https://github.com/HuskyCougar/ndjson-utilities
+# https://github.com/HuskyCougar/ndjson-utilities/blob/master/read_ndjson_and_yield_dict.py
 # read_ndjson_and_yield_dict.py
 
 import os
