@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # https://github.com/HuskyCougar/ndjson-utilities
+# https://github.com/HuskyCougar/ndjson-utilities/blob/master/ndjson_pretty.py
 # ndjson_pretty.py
 
 import sys
