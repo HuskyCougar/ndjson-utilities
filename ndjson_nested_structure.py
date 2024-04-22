@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # nano ~/.bashrc
-# alias ndjsondeeprefs=/data/CODE/ndjson_deep_refs.py
+# alias ndjsondeeprefs=/path/to/ndjson_deep_refs.py
 
 import sys
 import fileinput
@@ -10,15 +10,16 @@ import json
 sys.stdout.reconfigure( line_buffering = True )
 
 ########################################################################
-##                       Print Deep References                        ##
+##                       Print Nested Structure                       ##
 ########################################################################
 
-def print_deep_refs( ref , val ) :
+def print_nested_structure( ref , val ) :
 
-    '''print_deep_refs - Print deep references to multidimensional python datastructures'''
+    '''print_nested_structure - this function provides a way to explore and understand the structure and content of complex nested data in Python'''
 
     typ_pad = 18
     ref_pad = 95
+    max_list_preview = 5
 
     val_t = str(type(val))
     ref_s = f'{(str(ref))}'
@@ -33,11 +34,11 @@ def print_deep_refs( ref , val ) :
         # GitHub homies, what might make sense here?
 
     elif isinstance( val , list  ) :
-        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:5]}' )
-        for i , v in enumerate(val) : print_deep_refs( f'{ref_s}[ {i} ]' , v )
+        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:max_list_preview]}' )
+        for i , v in enumerate(val) : print_nested_structure( f'{ref_s}[ {i} ]' , v )
 
     elif isinstance( val , dict ) :
-        for k , v in val.items() : print_deep_refs( f'{ref_s}[ "{k}" ]' , val[ k ] )
+        for k , v in val.items() : print_nested_structure( f'{ref_s}[ "{k}" ]' , val[ k ] )
 
     else : print( f"# TODO # Type : {(type(val)) : {val}}" )  # Fix me if this ever happens
 
@@ -51,12 +52,13 @@ for rec_str in fileinput.input() :
     if not rec_str.strip() : continue
 
     try : 
-        print_deep_refs( "rec" , json.loads( rec_str ) )
+        print_nested_structure( "rec" , json.loads( rec_str ) )
         print()
     except Exception as try_err : 
         print( f'# Try Error : {try_err}' )
         print( f'# rec_str   : {rec_str}' )
     except : pass
+
 
 
 
