@@ -17,25 +17,27 @@ def print_deep_refs( ref , val ) :
 
     '''print_deep_refs - Print deep references to multidimensional python datastructures'''
 
-    val_typ = str(type(val))
-    ref_str = f'{(str(ref))}'
+    typ_pad = 18
+    ref_pad = 95
 
-    if   isinstance( val , str   ) : print( f'# {val_typ:<18} # {ref_str:<65} : {val}' )
-    elif isinstance( val , int   ) : print( f'# {val_typ:<18} # {ref_str:<65} : {val}' )
-    elif isinstance( val , float ) : print( f'# {val_typ:<18} # {ref_str:<65} : {val}' )
-    elif             val is None   : print( f'# {val_typ:<18} # {ref_str:<65} : None'  )
+    val_t = str(type(val))
+    ref_s = f'{(str(ref))}'
 
-    elif isinstance( val , set   ) :
-        print( f'# {val_typ:<18} # {ref_str:<65} # set' )
-        # todo: figure out something useful. No sets in JSON.
+    if   isinstance( val , str   ) : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
+    elif isinstance( val , int   ) : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
+    elif isinstance( val , float ) : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
+    elif             val is None   : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : None'  )
+
+    elif isinstance( val , set   ) : # Python has sets. JSON does not.
+        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # set' )
+        # GitHub homies, what might make sense here?
 
     elif isinstance( val , list  ) :
-        #print( f'# {val_typ:<18} # {ref_str:<65} # {val}' )
-        for i in range(len(val)) : print_deep_refs( f'{ref_str}[ {i} ]' , val[ i ] )
+        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:5]}' )
+        for i , v in enumerate(val) : print_deep_refs( f'{ref_s}[ {i} ]' , v )
 
     elif isinstance( val , dict ) :
-        #print( f'# {val_typ:<18} # {ref_str:<65} # {val}' )
-        for k,v in val.items() : print_deep_refs( f'{ref_str}[ {k} ]' , v )
+        for k , v in val.items() : print_deep_refs( f'{ref_s}[ "{k}" ]' , val[ k ] )
 
     else : print( f"# TODO # Type : {(type(val)) : {val}}" )  # Fix me if this ever happens
 
@@ -49,7 +51,7 @@ for rec_str in fileinput.input() :
     if not rec_str.strip() : continue
 
     try : 
-        print_deep_refs( "rec" , json.loads(rec_str) )
+        print_deep_refs( "rec" , json.loads( rec_str ) )
         print()
     except Exception as try_err : 
         print( f'# Try Error : {try_err}' )
