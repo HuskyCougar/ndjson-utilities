@@ -14,7 +14,7 @@ sys.stdout.reconfigure( line_buffering = True )
 ##                       Print Nested Structure                       ##
 ########################################################################
 
-def print_nested_structure( ref , val ) :
+def print_nested_data( ref , val ) :
 
     '''print_nested_structure - this function provides a way to explore and understand the structure and content of complex nested data in Python'''
 
@@ -36,10 +36,10 @@ def print_nested_structure( ref , val ) :
 
     elif isinstance( val , list  ) :
         print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:max_list_preview]}' )
-        for i , v in enumerate(val) : print_nested_structure( f'{ref_s}[ {i} ]' , v )
+        for i , v in enumerate(val) : print_nested_data( f'{ref_s}[ {i} ]' , v )
 
     elif isinstance( val , dict ) :
-        for k , v in val.items() : print_nested_structure( f'{ref_s}[ "{k}" ]' , val[ k ] )
+        for k , v in val.items() : print_nested_data( f'{ref_s}[ "{k}" ]' , val[ k ] )
 
     else : print( f"# TODO # Type : {(type(val)) : {val}}" )  # Fix me if this ever happens
 
@@ -52,7 +52,7 @@ for rec_str in fileinput.input() :
     if not rec_str.strip() : continue
 
     try :
-        print_nested_structure( "rec" , json.loads( rec_str ) )
+        print_nested_data( "rec" , json.loads( rec_str ) )
         print()
     except Exception as try_err :
         print( f'# Try Error : {try_err}' )
