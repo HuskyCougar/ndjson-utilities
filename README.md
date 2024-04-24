@@ -33,15 +33,15 @@ album_year   = json[ "music" ][ "album" ][ "year" ]
 album_tracks = json[ "music" ][ "album" ][ "tracks" ]
 ```
 
-## print_nested_data.py
+## ndjson_print_structure.py
 
 This is a script that uses the `print_nested_data` function and reads NDJSON data from either a file or standard input (STDIN). It deconstructs the data structure, similar to what was shown above.
 
 I have an alias for this script in my bash run com file (.bashrc). Here's how to set it up:
 
  - Open your bash configuration file using `nano ~/.bashrc`.
- - Add a line at the end similar to: `alias ndjsonstruct=/path/to/ndjson_nested_structure.py` (replace `/path/to/ndjson_nested_structure.py` with the actual path to your script).
- - After saving the changes, source the bash configuration file using `source ~/.bashrc` to reload it and start using the alias `ndjsonstruct`.
+ - Add a line at the end similar to: `alias ndjsonnested=/path/to/ndjson_nested_structure.py` (replace `/path/to/ndjson_nested_structure.py` with the actual path to your script).
+ - After saving the changes, source the bash configuration file using `source ~/.bashrc` to reload it and start using the alias `ndjsonnested`.
 
 This is a command-line tool that uses the `print_nested_data` and reads ndjson data from either a file or from STDIN and deconstructs the data just as it is shown above. 
 
@@ -52,9 +52,9 @@ To use this function to analyze your Python data copy the `print_nested_data` fu
 If you set the alias, it is as easy as:
 
 ```sh
-ndjsonstruct gemini_sample_data_03.ndjson 
+ndjsonnested gemini_sample_data_03.ndjson 
 # or, for gzipped data
-gunzip -c Kaggle_500MB_TV_Show.ndjson.gz | head | ndjsonstruct
+gunzip -c Kaggle_500MB_TV_Show.ndjson.gz | head | ndjsonnested
 ```
 
 If you did not set an alias, run it like this:
