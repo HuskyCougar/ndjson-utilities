@@ -11,12 +11,12 @@ import json
 sys.stdout.reconfigure( line_buffering = True )
 
 ########################################################################
-##                       Print Nested Structure                       ##
+##                         Print Nested Data                          ##
 ########################################################################
 
 def print_nested_data( ref , val ) :
 
-    '''print_nested_structure - this function provides a way to explore and understand the structure and content of complex nested data in Python'''
+    '''print_nested_data - this function provides a way to explore and understand the structure and content of complex nested data in Python'''
 
     typ_pad = 18
     ref_pad = 95
