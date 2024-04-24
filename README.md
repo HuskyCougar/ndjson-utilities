@@ -1,7 +1,7 @@
 # ndjson-utilities
 Tools I have written to work with ndjson files.
 
-## print_nested_structure
+## print_nested_data
 
 This function reads multidimensional data and recursively descends into it. This helps you identify the structure of nested dictionaries and lists, including keys at each level and the data types of the values.
 
@@ -33,9 +33,9 @@ album_year   = json[ "music" ][ "album" ][ "year" ]
 album_tracks = json[ "music" ][ "album" ][ "tracks" ]
 ```
 
-## print_nested_structure.py
+## print_nested_data.py
 
-This is a script that uses the `print_nested_structure` function and reads NDJSON data from either a file or standard input (STDIN). It deconstructs the data structure, similar to what was shown above.
+This is a script that uses the `print_nested_data` function and reads NDJSON data from either a file or standard input (STDIN). It deconstructs the data structure, similar to what was shown above.
 
 I have an alias for this script in my bash run com file (.bashrc). Here's how to set it up:
 
@@ -43,7 +43,9 @@ I have an alias for this script in my bash run com file (.bashrc). Here's how to
  - Add a line at the end similar to: `alias ndjsonstruct=/path/to/ndjson_nested_structure.py` (replace `/path/to/ndjson_nested_structure.py` with the actual path to your script).
  - After saving the changes, source the bash configuration file using `source ~/.bashrc` to reload it and start using the alias `ndjsonstruct`.
 
-This is a script that uses the `print_nested_structure` and reads ndjson data from either a file or from STDIN and deconstructs the data just as it is shown above.
+This is a command-line tool that uses the `print_nested_data` and reads ndjson data from either a file or from STDIN and deconstructs the data just as it is shown above. 
+
+To use this function to analyze your Python data copy the `print_nested_data` function into your script and use the function like `print_nested_data( "string_to_prepend" , var_name )`
 
 ### Usage
 
@@ -65,11 +67,13 @@ gunzip -c Kaggle_500MB_TV_Show.ndjson.gz | head | python3 /path/to/ndjson_nested
 
 ## ndjson_pretty.py
 
-This is a simple tool that reads JSON or NDJSON data from a file or from STDIN and pretty prints the data to STDOUT. 
+This is a simple command line tool that reads JSON or NDJSON data from a file or from STDIN and pretty prints the data to STDOUT. 
 
 I have this set as an aliased command in my ~/.bashrc file.
 
 ## read_ndjson_and_yield_dict.py
+
+This script does nothing. I assume that you will import or copy this function into your script.
 
 The function in this script `read_ndjson_and_yield_dict` opens NDJSON files and returns a dictionary for each record. It also opens JSON files. If the JSON is an Array of Objects, the function will iterate over the list and yield dictionaries (or return dictionaries one by one).
 
