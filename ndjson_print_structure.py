@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 # https://github.com/HuskyCougar/ndjson-utilities
-# https://github.com/HuskyCougar/ndjson-utilities/blob/master/ndjson_nested_structure.py
-# ndjson_nested_structure.py
+# https://github.com/HuskyCougar/ndjson-utilities/blob/master/ndjson_print_structure.py
+# ndjson_print_structure.py
 
 import sys
 import fileinput
@@ -67,7 +67,7 @@ for rec_str in fileinput.input() :
 #   ## Add alias to ~/.bashrc
 #
 #   nano ~/.bashrc
-#   alias ndjsonstruct=/path/to/ndjson_nested_structure.py
+#   alias ndjsonnested=/path/to/ndjson_print_structure.py
 #   source ~/.bashrc
 #
 #   Examples assume you made an alias. If you did not, use the path to the script instead.
@@ -85,7 +85,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       ndjsonstruct music_albums.ndjson
+#       ndjsonnested music_albums.ndjson
 #
 #   ### Output
 #
@@ -109,7 +109,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       head music_albums.ndjson | ndjsonstruct
+#       head music_albums.ndjson | ndjsonnested
 #
 #   ### Output
 #
@@ -133,7 +133,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       gunzip -c music_albums.ndjson.gz | head | ndjsonstruct
+#       gunzip -c music_albums.ndjson.gz | head | ndjsonnested
 #
 #   ### Output
 #
@@ -141,7 +141,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       grep -i Grunge music_albums.ndjson | ndjsonstruct
+#       grep -i Grunge music_albums.ndjson | ndjsonnested
 #
 #   ### Output
 #
@@ -157,11 +157,12 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       grep -i Jazz music_albums.ndjson | ndjsonstruct | grep title
+#       grep -i Jazz music_albums.ndjson | ndjsonnested | grep title
 #
 #   ### Output
 #
 #       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Blue Train
 #       # <class 'str'>      # rec[ "album" ][ "title" ]                 : Kind of Blue
 #
+
 
