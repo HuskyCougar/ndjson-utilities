@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 # https://github.com/HuskyCougar/ndjson-utilities
-# https://github.com/HuskyCougar/ndjson-utilities/blob/master/ndjson_print_structure.py
-# ndjson_print_structure.py
+# https://github.com/HuskyCougar/ndjson-utilities/blob/master/ndjson_print_nested_data.py
+# ndjson_print_nested_data.py
 
 import sys
 import fileinput
@@ -67,7 +67,7 @@ for rec_str in fileinput.input() :
 #   ## Add alias to ~/.bashrc
 #
 #   nano ~/.bashrc
-#   alias ndjsonnested=/path/to/ndjson_print_structure.py
+#   alias ndjsondeepref=/path/to/ndjson_print_nested_data.py
 #   source ~/.bashrc
 #
 #   Examples assume you made an alias. If you did not, use the path to the script instead.
@@ -85,7 +85,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       ndjsonnested music_albums.ndjson
+#       ndjsondeepref music_albums.ndjson
 #
 #   ### Output
 #
@@ -109,7 +109,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       head music_albums.ndjson | ndjsonnested
+#       head music_albums.ndjson | ndjsondeepref
 #
 #   ### Output
 #
@@ -133,7 +133,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       gunzip -c music_albums.ndjson.gz | head | ndjsonnested
+#       gunzip -c music_albums.ndjson.gz | head | ndjsondeepref
 #
 #   ### Output
 #
@@ -141,7 +141,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       grep -i Grunge music_albums.ndjson | ndjsonnested
+#       grep -i Grunge music_albums.ndjson | ndjsondeepref
 #
 #   ### Output
 #
@@ -157,7 +157,7 @@ for rec_str in fileinput.input() :
 #
 #   ### Syntax
 #
-#       grep -i Jazz music_albums.ndjson | ndjsonnested | grep title
+#       grep -i Jazz music_albums.ndjson | ndjsondeepref | grep title
 #
 #   ### Output
 #
