@@ -40,8 +40,8 @@ This is a script that uses the `print_nested_data` function and reads NDJSON dat
 I have an alias for this script in my bash run com file (.bashrc). Here's how to set it up:
 
  - Open your bash configuration file using `nano ~/.bashrc`.
- - Add a line at the end similar to: `alias ndjsonnested=/path/to/ndjson_nested_structure.py` (replace `/path/to/ndjson_nested_structure.py` with the actual path to your script).
- - After saving the changes, source the bash configuration file using `source ~/.bashrc` to reload it and start using the alias `ndjsonnested`.
+ - Add a line at the end similar to: `alias ndjsondeepref=/path/to/ndjson_nested_structure.py` (replace `/path/to/ndjson_nested_structure.py` with the actual path to your script).
+ - After saving the changes, source the bash configuration file using `source ~/.bashrc` to reload it and start using the alias `ndjsondeepref`.
 
 This is a command-line tool that uses the `print_nested_data` and reads ndjson data from either a file or from STDIN and deconstructs the data just as it is shown above. 
 
@@ -52,9 +52,9 @@ To use this function to analyze your Python data copy the `print_nested_data` fu
 If you set the alias, it is as easy as:
 
 ```sh
-ndjsonnested gemini_sample_data_03.ndjson 
+ndjsondeepref gemini_sample_data_03.ndjson 
 # or, for gzipped data
-gunzip -c Kaggle_500MB_TV_Show.ndjson.gz | head | ndjsonnested
+gunzip -c Kaggle_500MB_TV_Show.ndjson.gz | head | ndjsondeepref
 ```
 
 If you did not set an alias, run it like this:
