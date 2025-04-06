@@ -30,7 +30,7 @@ for rec_str in fileinput.input() :
 #   ## Add alias to ~/.bashrc
 #
 #   nano ~/.bashrc
-#   alias ndjsonstruct=/path/to/ndjson_pretty.py
+#   alias ndjsonpretty=/path/to/ndjson_pretty.py
 #   source ~/.bashrc
 
 
