@@ -24,7 +24,9 @@ def print_deep_refs( ref , val ) :
     val_t = str(type(val))
     ref_s = f'{(str(ref))}'
 
-    if   isinstance( val , str   ) : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
+    if   isinstance( val , str   ) : 
+        if val : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
+        else   : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : ""  # Empty String' )
     elif isinstance( val , int   ) : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
     elif isinstance( val , float ) : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {val}' )
     elif             val is None   : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : None'  )
@@ -33,11 +35,16 @@ def print_deep_refs( ref , val ) :
         print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # set' )
 
     elif isinstance( val , list  ) :
-        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:5]}' )
-        for i , v in enumerate(val) : print_deep_refs( f'{ref_s}[ {i} ]' , v )
+        if val :
+            print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:5]}' )
+            for i , v in enumerate(val) : print_deep_refs( f'{ref_s}[ {i} ]' , v )
+        else : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : []  # Empty List' )
+
 
     elif isinstance( val , dict ) :
-        for k , v in val.items() : print_deep_refs( f'{ref_s}[ "{k}" ]' , val[ k ] )
+        if val :
+            for k , v in val.items() : print_deep_refs( f'{ref_s}[ "{k}" ]' , val[ k ] )
+        else : print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} : {{}}  # Empty Dictionary' )
 
     else : print( f"# TODO # Type : {(type(val))} : {val}" )  # Fix me if this ever happens
 
