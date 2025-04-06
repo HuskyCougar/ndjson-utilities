@@ -14,13 +14,12 @@ sys.stdout.reconfigure( line_buffering = True )
 ##                         Print Nested Data                          ##
 ########################################################################
 
-def print_nested_data( ref , val ) :
+def print_deep_refs( ref , val ) :
 
-    '''print_nested_data - this function provides a way to explore and understand the structure and content of complex nested data in Python'''
+    '''print_deep_refs - Print deep references to multidimensional python datastructures'''
 
     typ_pad = 18
     ref_pad = 95
-    max_list_preview = 5
 
     val_t = str(type(val))
     ref_s = f'{(str(ref))}'
@@ -32,16 +31,15 @@ def print_nested_data( ref , val ) :
 
     elif isinstance( val , set   ) : # Python has sets. JSON does not.
         print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # set' )
-        # GitHub homies, what might make sense here?
 
     elif isinstance( val , list  ) :
-        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:max_list_preview]}' )
-        for i , v in enumerate(val) : print_nested_data( f'{ref_s}[ {i} ]' , v )
+        print( f'# {val_t:<{typ_pad}} # {ref_s:<{ref_pad}} # {val[:5]}' )
+        for i , v in enumerate(val) : print_deep_refs( f'{ref_s}[ {i} ]' , v )
 
     elif isinstance( val , dict ) :
-        for k , v in val.items() : print_nested_data( f'{ref_s}[ "{k}" ]' , val[ k ] )
+        for k , v in val.items() : print_deep_refs( f'{ref_s}[ "{k}" ]' , val[ k ] )
 
-    else : print( f"# TODO # Type : {(type(val)) : {val}}" )  # Fix me if this ever happens
+    else : print( f"# TODO # Type : {(type(val))} : {val}" )  # Fix me if this ever happens
 
 ########################################################################
 ##                            Read in Data                            ##
@@ -51,10 +49,10 @@ for rec_str in fileinput.input() :
 
     if not rec_str.strip() : continue
 
-    try :
-        print_nested_data( "rec" , json.loads( rec_str ) )
+    try : 
+        print_deep_refs( "rec" , json.loads(rec_str) )
         print()
-    except Exception as try_err :
+    except Exception as try_err : 
         print( f'# Try Error : {try_err}' )
         print( f'# rec_str   : {rec_str}' )
     except : pass
